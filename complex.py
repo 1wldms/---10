@@ -14,14 +14,13 @@ class Complex:
         return Complex(new_real, new_imaginary)
     
     def __mul__(self, operand):
-        new_real = self.real  operand.real - self.imaginary  operand.imaginary
-        new_imaginary = self.real  operand.imaginary + self.imaginary  operand.real
+        new_real = self.real * operand.real - self.imaginary * operand.imaginary
+        new_imaginary = self.real * operand.imaginary + self.imaginary * operand.real
         return Complex(new_real, new_imaginary)
     
     def __neg__(self):
         new_real = -(self.real)
         new_imaginary = -(self.imaginary)
-        
         return Complex(new_real, new_imaginary)
     
     def __str__(self):
