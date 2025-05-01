@@ -1,19 +1,23 @@
 class Complex:
-    def __init__(self, a,b):
-        self.a = a
-        self.b = b
+    def __init__(self, real,imaginary):
+        self.real = real
+        self.imaginary = imaginary
 
     def __add__(self, operand):
-        new_a = self.a + operand.a
-        new_b = self.b + operand.b
-        return Complex(new_a, new_b)
+        new_real = self.real + operand.real
+        new_imaginary = self.imaginary + operand.imaginary
+        return Complex(new_real, new_imaginary)
     
-    def __str__(self):
-        return f'{self.a} + {self.b}i'
-    
-    def dd
+    def __sub__(self, operand):
+        new_real = self.real - operand.real
+        new_imaginary = self.imaginary - operand.imaginary
+        return Complex(new_real, new_imaginary)
+
 
 A = Complex(1,2)
 B = Complex(3,4)
-C = A + B
-print(C)
+print(-A)
+print(-B)
+print(A + B)
+print(A - B)
+print(A * B)
