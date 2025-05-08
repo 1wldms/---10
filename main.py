@@ -1,14 +1,14 @@
 def get_original_text():
     with open('plain.txt', 'r') as f:
         for line in f:
-            print(line) 
-            return
+            return line
 
 def get_shift_amount():
     return
 
 def remove_nonletters(input_text):
-    re
+    
+    return
 
 def cipher(text, shift_amount):
     return
