@@ -16,9 +16,9 @@ def remove_nonletters(input_text):
     for word in input_text:
         if word.isalpha():
             result.append(word)
-    input_text = ''.join(result)
+    text = ''.join(result)
     
-    return input_text
+    return text
 
 def cipher(text, shift_amount):
     return
