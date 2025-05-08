@@ -1,3 +1,5 @@
+import argparse
+
 def get_original_text():
     with open('plain.txt', 'r') as f:
         for line in f:
