@@ -35,7 +35,11 @@ def cipher(text, shift_amount):
     return text
 
 def decipher(text, shift_amount):
-    return
+    
+    #암호화 코드 붙이기
+    text = text.replace(' ','')
+    return text
+
 
 
 if __name__ == '__main__':
