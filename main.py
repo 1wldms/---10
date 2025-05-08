@@ -1,5 +1,8 @@
 def get_original_text():
-    return
+    with open('plain.txt', 'r') as f:
+        for line in f:
+            print(line) 
+            return
 
 def get_shift_amount():
     return
