@@ -7,7 +7,10 @@ def get_original_text():
             return input_text
         
 def get_shift_amount():
-    return
+    parser = argparse.ArgumentParser(description='Shift 숫자를 입력받는 예제')
+    parser.add_argument('--shift', type=int, required=True, help='문자를 이동할 숫자')
+    args = parser.parse_args()
+    return args.shift
 
 def remove_nonletters(input_text):
     input_text = input_text.upper()
@@ -16,9 +19,9 @@ def remove_nonletters(input_text):
     for word in input_text:
         if word.isalpha():
             result.append(word)
-    text = ''.join(result)
+    input_text = ''.join(result)
     
-    return text
+    return input_text
 
 def cipher(text, shift_amount):
     return
