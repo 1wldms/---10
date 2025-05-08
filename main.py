@@ -8,7 +8,7 @@ def get_shift_amount():
     return
 
 def remove_nonletters(input_text):
-    return
+    re
 
 def cipher(text, shift_amount):
     return
