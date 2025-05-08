@@ -1,5 +1,17 @@
+def get_original_text():
+    return
 
+def get_shift_amount():
+    return
 
+def remove_nonletters(input_text):
+    return
+
+def cipher(text, shift_amount):
+    return
+
+def decipher(text, shift_amount):
+    return
 
 
 if __name__ == '__main__':
