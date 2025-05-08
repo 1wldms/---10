@@ -24,7 +24,15 @@ def remove_nonletters(input_text):
     return input_text
 
 def cipher(text, shift_amount):
-    return
+    
+    # 5 단어씩 나누기, 아직 cipher 하기 전
+    result = []
+    for i in range(0, len(text), 5):
+        split = text[i:i+5]
+        result.append(split)
+    text = ' '.join(result)
+    
+    return text
 
 def decipher(text, shift_amount):
     return
