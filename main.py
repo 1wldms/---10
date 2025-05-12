@@ -25,14 +25,24 @@ def remove_nonletters(input_text):
 
 def cipher(text, shift_amount):
     
-    # 5 단어씩 나누기, 아직 cipher 하기 전
+    encrypted = []
+    for char in text:
+        if char.isupper():
+            encrypted.append(chr((ord(char) - ord('A') + shift_amount) % 26 + ord('A')))
+        elif char.islower():
+            encrypted.append(chr((ord(char) - ord('a') + shift_amount) % 26 + ord('a')))
+        else:
+            encrypted.append(char)
+
+    # 5 단어씩 나누기
     result = []
     for i in range(0, len(text), 5):
         split = text[i:i+5]
-        result.append(split)
+        result.append(''.join(encrypted[i:i+5]))
     text = ' '.join(result)
-    
+
     return text
+
 
 def decipher(text, shift_amount):
     
