@@ -43,8 +43,18 @@ def cipher(text, shift_amount):
 
 
 def decipher(text, shift_amount):
+    decrypted = []
+    
+    for char in text:
+        if char.isupper():
+            decrypted.append(chr((ord(char) - ord('A') - shift_amount) % 26 + ord('A')))
+        elif char.islower():
+            decrypted.append(chr((ord(char) - ord('a') - shift_amount) % 26 + ord('a')))
+        else:
+            decrypted.append(char)
     
     #암호화 코드 붙이기
+    text = ''.join(decrypted)
     text = text.replace(' ','')
     return text
 
