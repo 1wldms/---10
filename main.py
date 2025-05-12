@@ -13,7 +13,6 @@ def get_shift_amount():
     return args.shift
 
 def remove_nonletters(input_text):
-    
     result = []
     for word in input_text:
         if word.isalpha():
