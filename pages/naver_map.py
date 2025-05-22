@@ -6,7 +6,7 @@ st.sidebar.markdown('# 민원')
 from streamlit.components.v1 import html
 
 # 네이버 클라이언트 아이디
-NAVER_CLIENT_ID = "u85vj7zq6q"
+NAVER_CLIENT_ID = "qzkec0z7y6"
 
 map_html = f"""
 <div id="map" style="width:100%;height:400px;"></div>
