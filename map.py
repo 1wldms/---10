@@ -2,9 +2,9 @@ import streamlit as st
 import pydeck as pdk
 
 
-from google.auth import default
+'''from google.auth import default
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+from googleapiclient.errors import HttpError'''
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
