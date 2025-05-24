@@ -62,3 +62,10 @@ def google_sheet_read(spreadsheet_id, range_name):
     except HttpError as error:
         print(f"An error occurred: {error}")
         return []
+
+
+# name = st.text_input('이름을 입력하세요.', max_chars=10)
+# context = st.text_area('민원 내용을 입력하세요.', height = 제한 숫자)
+# my_date = st.date_input('민원 날짜를 입력하세요.')
+# submit = st.form_submit_button
+# google_sheet_upload(SPREADSHEET_ID, 시트 range_name, [[name, context]])
