@@ -15,21 +15,8 @@ st.sidebar.markdown('# 민원')
 latitude = 37.5636201943343
 longitude = 126.93774785651566
 
-def map(lat, lon, zoom):
-    st.pydeck_chart(
-        pdk.Deck(
-            map_style="mapbox://styles/mapbox/light-v9",
-            initial_view_state={
-                "latitude": lat,
-                "longitude": lon,
-                "zoom": zoom,
-                "pitch": 0,
-            },
-            layers=[],
-        )
-    )
-
-map(latitude,longitude,zoom=15)
+m = folium.Map(location=[latitude, longitude], zoom_start=16)
+map_data = st_folium(m, width=725)
 
 
 def google_sheet_upload(spreadsheet_id, range_name, values):
@@ -63,7 +50,8 @@ def google_sheet_read(spreadsheet_id, range_name):
     except HttpError as error:
         print(f"An error occurred: {error}")
         return []
-    
+
+
 clicked_location = map_data.get("last_clicked")
 
 # 민원 입력 폼
