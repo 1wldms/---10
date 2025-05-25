@@ -18,7 +18,6 @@ longitude = 126.93774785651566
 m = folium.Map(location=[latitude, longitude], zoom_start=16)
 map_data = st_folium(m, width=725)
 
-
 def google_sheet_upload(spreadsheet_id, range_name, values):
     creds, _ = default(scopes=SCOPES)
     
@@ -88,11 +87,3 @@ if clicked_location:
                 st.warning("이름과 민원 내용을 모두 입력해주세요.")
 else:
     st.info("먼저 지도에서 위치를 클릭해주세요.")
-
-
-
-# name = st.text_input('이름을 입력하세요.', max_chars=10)
-# context = st.text_area('민원 내용을 입력하세요.', height = 제한 숫자)
-# my_date = st.date_input('민원 날짜를 입력하세요.')
-# submit = st.form_submit_button
-# google_sheet_upload(SPREADSHEET_ID, 시트 range_name, [[name, context]])
