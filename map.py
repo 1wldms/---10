@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-SERVICE_ACCOUNT_FILE = "/Users/jieun/Desktop/---10-1/credentials.json"
+SERVICE_ACCOUNT_FILE = "./credentials.json"
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SPREADSHEET_ID = "1r6u_HkJeCLgdMbbwGvM5b93jRibhgQniHmbVYsX0i04"
 
