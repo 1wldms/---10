@@ -66,7 +66,7 @@ if clicked_location:
 
         if submitted:
             if name and content:
-                values = [[str(date), name, content, f"'{lat}", f"'{lon}"]]
+                values = [[date.strftime("%Y-%m-%d"), name, content, f"'{lat}", f"'{lon}"]]
                 result = google_sheet_upload(SPREADSHEET_ID, "시트1!A:E", values)
                 if isinstance(result, HttpError):
                     st.error(f"Google Sheet 오류: {result}")
