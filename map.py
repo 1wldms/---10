@@ -73,21 +73,11 @@ if clicked_location:
         if submitted:
             if name and content:
                 values = [[str(date), name, content, f"'{lat}", f"'{lon}"]]
-                result = None
-                try:
-                    creds, _ = default(scopes=SCOPES)
-                    service = build("sheets", "v4", credentials=creds)
-                    body = {"values": values}
-                    result = service.spreadsheets().values().append(
-                        spreadsheetId=SPREADSHEET_ID,
-                        range="시트1!A:E",  # 날짜, 이름, 내용, 위도, 경도
-                        valueInputOption="USER_ENTERED",
-                        insertDataOption="INSERT_ROWS",
-                        body=body
-                    ).execute()
+                result = google_sheet_upload(SPREADSHEET_ID, "시트1!A:E", values)
+                if isinstance(result, HttpError):
+                    st.error(f"Google Sheet 오류: {result}")
+                else:
                     st.success("민원이 성공적으로 제출되었습니다!")
-                except HttpError as error:
-                    st.error(f"Google Sheet 오류: {error}")
             else:
                 st.warning("이름과 민원 내용을 모두 입력해주세요.")
 else:
