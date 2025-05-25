@@ -24,10 +24,7 @@ m = folium.Map(location=[latitude, longitude], zoom_start=16)
 map_data = st_folium(m, width=725)
 
 def google_sheet_upload(spreadsheet_id, range_name, values):
-    creds, _ = default(scopes=SCOPES)
-    
     try:
-        service = build("sheets", "v4", credentials=creds)
         body = {"values": values}
         result = service.spreadsheets().values().append(
             spreadsheetId=spreadsheet_id,
@@ -42,10 +39,7 @@ def google_sheet_upload(spreadsheet_id, range_name, values):
         return error
 
 def google_sheet_read(spreadsheet_id, range_name):
-    creds, _ = default(scopes=SCOPES)
-    
     try:
-        service = build("sheets", "v4", credentials=creds)
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id,
             range=range_name
