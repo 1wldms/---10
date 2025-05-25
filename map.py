@@ -5,9 +5,14 @@ from google.auth import default
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+SERVICE_ACCOUNT_FILE = "/Users/jieun/Desktop/---10-1/credentials.json"
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SPREADSHEET_ID = "1r6u_HkJeCLgdMbbwGvM5b93jRibhgQniHmbVYsX0i04"
 
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+service = build("sheets", "v4", credentials=credentials)
 
 st.title('📍민원 접수')
 st.sidebar.markdown('# 민원')
@@ -67,7 +72,7 @@ if clicked_location:
 
         if submitted:
             if name and content:
-                values = [[str(date), name, content, lat, lon]]
+                values = [[str(date), name, content, f"'{lat}", f"'{lon}"]]
                 result = None
                 try:
                     creds, _ = default(scopes=SCOPES)
