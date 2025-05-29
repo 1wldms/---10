@@ -21,7 +21,7 @@ latitude = 37.5636201943343
 longitude = 126.93774785651566
 
 m = folium.Map(location=[latitude, longitude], zoom_start=16)
-map_data = st_folium(m, width=725)
+
 
 def google_sheet_upload(spreadsheet_id, range_name, values):
     try:
@@ -50,12 +50,44 @@ def google_sheet_read(spreadsheet_id, range_name):
         return []
 
 
+# 민원 지도에 표시
+complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:E")
+
+for row in complaints_data:
+    if len(row) == 5:
+        date, name, content, lat, lon = row
+        try:
+            lat = float(lat.replace("'", ""))
+            lon = float(lon.replace("'", ""))
+            
+            popup_html = f"""
+            <div style='font-size:12px; line-height:1.2; width:200px; word-wrap:break-word;'>
+            📍 <b>{name}</b><br>
+            📝 {content}<br>
+            📅 {date}
+            </div>
+            """
+            
+            folium.Marker(
+                location=[lat, lon],
+                popup=popup_html,
+                icon=folium.Icon(color="red", icon="glyphicon-map-marker")
+            ).add_to(m)
+        except ValueError:
+            pass            
+
+
+map_data = st_folium(m, width=725)
+
 clicked_location = map_data.get("last_clicked")
 
 # 민원 입력 폼
 if clicked_location:
     lat = clicked_location["lat"]
     lon = clicked_location["lng"]
+    
+    st.toast("📍 위치가 선택되었습니다! 아래에서 민원을 작성해주세요.")
+    
     st.success(f"선택한 위치: 위도 {lat:.5f}, 경도 {lon:.5f}")
 
     with st.form("complaint_form"):
