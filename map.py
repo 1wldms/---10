@@ -4,6 +4,9 @@ from streamlit_folium import st_folium
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator 
 
 SERVICE_ACCOUNT_FILE = "./credentials.json"
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -108,3 +111,30 @@ if clicked_location:
                 st.warning("이름과 민원 내용을 모두 입력해주세요.")
 else:
     st.info("먼저 지도에서 위치를 클릭해주세요.")
+    
+
+# 📌 체크박스로 플롯 표시
+if st.button("📊 날짜별 민원 수 보기"):
+    if complaints_data:
+        try:
+            dates = [row[0] for row in complaints_data if len(row) >= 1]
+            
+            df = pd.DataFrame({
+                '날짜': pd.to_datetime(dates, format="%Y. %m. %d", errors='coerce')
+            })
+            df = df.dropna()
+            
+            date_counts = df['날짜'].dt.strftime('%Y-%m-%d').value_counts().sort_index()
+            
+            fig, ax = plt.subplots()
+            date_counts.plot(kind='bar', ax=ax)
+            ax.set_title('Number of Complaints by Date')
+            ax.set_xlabel('Date')
+            ax.set_ylabel('Number of Complaints')
+            ax.tick_params(axis='x', rotation=45)
+            ax.yaxis.set_major_locator(MaxNLocator(integer=True)) 
+            st.pyplot(fig)
+        except Exception as e:
+            st.error(f"그래프 생성 중 오류 발생: {e}")
+    else:
+        st.info("아직 민원 데이터가 없습니다.")

@@ -79,16 +79,16 @@ df = pd.DataFrame({
 st.markdown("""
     <style>
     table {
-        width: 100%;
+        width: 110%;
         background-color: white;  /* 기본 배경색 흰색 */
         border-collapse: collapse;
         font-size: 16px;
     }
-
-    thead th {
-        text-align: left;  /* 열 제목: 가운데 정렬 */
+    
+    thead tr {
+        text-align: left !important; /* 열 제목 왼쪽 정렬 */
     }
-
+    
     tbody tr:hover {
         background-color: rgba(65, 105, 255, 0.2);  /* hover 시 연파란 */
     }
@@ -117,7 +117,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 
 st.markdown(df.to_html(index=False), unsafe_allow_html=True)
