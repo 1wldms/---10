@@ -113,7 +113,6 @@ else:
     st.info("먼저 지도에서 위치를 클릭해주세요.")
     
 
-# 📌 체크박스로 플롯 표시
 if st.button("📊 날짜별 민원 수 보기"):
     if complaints_data:
         try:
@@ -138,3 +137,21 @@ if st.button("📊 날짜별 민원 수 보기"):
             st.error(f"그래프 생성 중 오류 발생: {e}")
     else:
         st.info("아직 민원 데이터가 없습니다.")
+
+# 사이드바에 작성자 조회 UI
+st.sidebar.markdown("## 작성자별 민원 조회")
+author_name = st.sidebar.text_input("작성자 이름 입력")
+
+if st.sidebar.button("조회"):
+    if not author_name.strip():
+        st.sidebar.warning("작성자 이름을 입력해주세요.")
+    else:
+        filtered_complaints = [row for row in complaints_data if len(row) >= 2 and row[1] == author_name.strip()]
+        if filtered_complaints:
+            st.sidebar.write(f"'{author_name}' 님의 민원 내역:")
+            for row in filtered_complaints:
+                if len(row) == 5:
+                    date, name, content, lat, lon = row
+                    st.sidebar.markdown(f"- 📅 {date} | 📝 {content}")
+        else:
+            st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
