@@ -30,12 +30,12 @@ if lang == "ko":
 
     st.subheader("📌 서비스 소개")
     st.markdown("""
-    '동네 민원 신고 플랫폼'은 우리 동네의 불편사항을 손쉽게 등록하고,  
-    다른 사람들과 공유할 수 있는 웹 애플리케이션입니다.
-
-    이 서비스를 통해 누구나 **지도에서 위치를 클릭**하여 민원을 작성하고,  
-    그 내용을 **Google Sheet**에 자동 저장할 수 있습니다.
-    """)
+    <p><strong>'동네 민원 신고 플랫폼'</strong>은 우리 동네의 불편사항을 손쉽게 등록하고,<br>
+    다른 사람들과 공유할 수 있는 웹 애플리케이션입니다.</p>
+    
+    <p>이 서비스를 통해 누구나 <strong>지도에서 위치를 클릭</strong>하여 민원을 작성하고,<br>
+    그 내용을 <strong>Google Sheet</strong>에 자동 저장할 수 있습니다.</p>
+    """, unsafe_allow_html=True)
 
     st.subheader("🛠️ 사용 방법 (Manual)")
 
@@ -82,12 +82,12 @@ else:
 
     st.subheader("📌 Service Overview")
     st.markdown("""
-    The **Neighborhood Complaint Reporting Platform** is a web application  
-    that allows anyone to easily report local inconveniences and share them with others.
+    <p><strong>Neighborhood Complaint Reporting Platform</strong> is a web application that allows users to easily report local inconveniences and share them with others.</p>
 
-    Through this service, anyone can **click on a location on the map** to file a complaint,  
-    and have the contents automatically saved to a **Google Sheet**.
-    """)
+    <p>Through this service, anyone can <strong>click on a location on the map</strong> to file a complaint,<br>
+    and the details will be automatically saved to a <strong>Google Sheet</strong>.</p>
+    """, unsafe_allow_html=True)
+
 
     st.subheader("🛠️ How to Use (Manual)")
 
