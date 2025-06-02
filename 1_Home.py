@@ -52,6 +52,26 @@ if lang == "ko":
         - 작성자 이름을 입력한 후 '조회' 버튼을 누르면 해당 작성자의 민원만 볼 수 있습니다.  
         - 날짜별 민원 수를 확인할 수도 있어요.
         """)
+        
+    st.markdown("---")
+
+    st.subheader("🫵🏻 원하시는 페이지를 선택하세요!")
+    st.write("")
+    st.write("") 
+    
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("민원 작성하세요(한국어)"):
+            st.switch_page("pages/2_map.py")
+
+    with col2:
+        if st.button("민원 작성하세요(영어)"):
+            st.switch_page("pages/2_map.py")
+
+    with col3:
+        if st.button("시설 전화번호 모음"):
+            st.switch_page("pages/3_시설 전화번호.py")
 
     st.markdown("---")
     st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
@@ -84,6 +104,24 @@ else:
         - Enter the name in the sidebar and click the 'Search' button to view that user's complaints.  
         - You can also check the number of complaints by date.
         """)
+    
+    st.markdown("---")
+
+    st.subheader("🫵🏻 Please select the page you want!")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("Write Complaint (Korean)"):
+            st.switch_page("pages/2_map.py")
+
+    with col2:
+        if st.button("Write Complaint (English)"):
+            st.switch_page("pages/2_map.py")
+
+    with col3:
+        if st.button("Facility Phone Numbers"):
+            st.switch_page("pages/3_시설 전화번호.py")
 
     st.markdown("---")
     st.caption("Final Project for 정프심화 | By: Min Jieun & Park Haram")
