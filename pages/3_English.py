@@ -28,6 +28,7 @@ longitude = 126.93774785651566
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
 
+
 def google_sheet_upload(spreadsheet_id, range_name, values):
     try:
         body = {"values": values}
@@ -59,8 +60,8 @@ def google_sheet_read(spreadsheet_id, range_name):
 complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:G")
 
 for row in complaints_data:
-    if len(row) == 5:
-        date, name, content, lat, lon = row
+    if len(row) >= 5: 
+        date, name, content, lat, lon = row[:5]
         try:
             lat = float(lat.replace("'", ""))
             lon = float(lon.replace("'", ""))
@@ -149,6 +150,10 @@ if st.session_state.show_graph:
             st.error(f"Error creating graph: {e}")
     else:
         st.info("No complaints data available to display.")
+
+
+st.sidebar.markdown("## Search Complaints by Writer")
+writer_input = st.sidebar.text_input("Enter writer name", key="writer_input")
 
 # Save search state
 if st.sidebar.button("Search"):
