@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="시설 전화번호", page_icon="☎️")
-st.title("☎️ 시설 전화번호")
+st.set_page_config(page_title="시설 전화번호/ Facility Phone", page_icon="☎️")
+st.title("☎️ 시설 전화번호/ Facility Phone")
 
 df = pd.DataFrame ({
     "이름": [
@@ -28,7 +28,7 @@ df = pd.DataFrame ({
         "[안전관리팀] 소방시설 관리 ",
         "[안전관리팀] 연구실 안전관리, 환경시설"
     ],
-    "name": [
+    "Name": [
 
         "Facilities Office",
         "Facility Management Team",
@@ -53,7 +53,7 @@ df = pd.DataFrame ({
         "[Safety Management Team] Laboratory safety management, environmental facilities"  ,
 
     ],
-    "위치": [
+    "위치/Location": [
         "백양관",
         "백양관 S309호(비품), 백양관 N207호(원스톱지원)",
         "백양관 S309호",
@@ -76,7 +76,7 @@ df = pd.DataFrame ({
         "백양관S310호",
         "백양관 S310호"
     ],
-    "전화번호": [
+    "전화번호/Phone number": [
         "1599-1885",
         "02)2123-2180~4, 4000",
         "02)2123-2195~8",
@@ -109,45 +109,52 @@ st.markdown("""
         max-width: 100% !important;
     }
     table {
-        width: 140%;
+        width: 120%;
         background-color: white;  /* 기본 배경색 흰색 */
         border-collapse: collapse;
-        font-size: 16px;
+        font-size: 15px;
     }
     
     thead tr {
-        text-align: left !important; /* 열 제목 왼쪽 정렬 */
+        text-align: left !important; 
+        vertical-align: top;
     }
     
     tbody tr:hover {
-        background-color: rgba(65, 105, 255, 0.2);  /* hover 시 연파란 */
+        background-color: rgba(65, 105, 255, 0.2); 
     }
     
     tbody td:nth-child(1) {
         text-align: left;
-        font-size: 14px; /* 이름 value만 글자 작게 */
-        word-break: break-word;
+        font-size: 13px; 
+        width: 260px;
+        font-weight: bold;
     }
 
     tbody td:nth-child(2) {
         text-align: left;
-        font-size: 13px;          /* 위치 글자 작게 */
-        width: 250px;             /* 위치 칼럼 폭 제한 */
-        word-break: break-word;   /* 긴 문장 줄바꿈 */
+        font-size: 13px;         
+        width: 240px;           
+        word-break: break-word;   
     }
     
     tbody td:nth-child(3) {
-        text-align: center;   /* 전화번호: 가운데 정렬 */
+        font-size: 13px;
+        width: 110px;
+        text-align: center;   
+        word-break: break-word
     }
-            
+        
     tbody td:nth-child(4) {
-        text-align: center;   /* 전화번호: 가운데 정렬 */
+        text-align: center; 
         font-weight: bold;
+        width: 170px;
     }
 
     th, td {
         padding: 12px 20px;
         border: 1px solid gray;
+        vertical-align: top;
     }
     </style>
 """, unsafe_allow_html=True)
