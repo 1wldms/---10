@@ -4,29 +4,54 @@ import pandas as pd
 st.set_page_config(page_title="시설 전화번호", page_icon="☎️")
 st.title("☎️ 시설 전화번호")
 
-df = pd.DataFrame({
+df = pd.DataFrame ({
     "이름": [
         "시설처",
-        "시설처 관재팀",
-        "시설처 건축팀",
-        "시설처 설비팀",
-        "시설처 안전관리팀",
-        "시설처 조경팀",
+        "시설처 관재팀 ",
+        "시설처 건축팀 ",
+        "시설처 설비팀 ",
+        "시설처 안전관리팀 ",
+        "시설처 조경팀 ",
         "기후변화 적응형 사회기반시설 연구센터",
-        "[구매팀] 시설공사 및 시설용역 계약",
-        "[관재팀] 강의실 수엽용 기자재 및 PC실 관리",
-        "[관재팀] 비품등록 및 비품불용",
-        "[관재팀] 비품수리 및 비품마켓(재활용)",
-        "[건축팀] 리모델링, 공간변경",
-        "[건축팀] 출입문, 바닥재, 누수 등 시설 보수",
-        "[건축팀] 도면 관리",
-        "[설비팀] 전기시설, 음향영상시설, 승강기",
-        "[설비팀] 냉난방 및 위생설비(화장실)",
+        "[구매팀] 시설공사 및 시설용역 계약 ",
+        "[관재팀] 강의실 수업용 기자재 및 PC실 관리 ",
+        "[관재팀] 비품등록 및 비품불용 ",
+        "[관재팀] 비품수리 및 비품마켓(재활용) ",
+        "[건축팀] 리모델링, 공간변경 ",
+        "[건축팀] 출입문, 바닥재, 누수 등 시설 보수 ",
+        "[건축팀] 도면 관리 ",
+        "[설비팀] 전기시설, 음향영상시설, 승강기 ",
+        "[설비팀] 냉난방 및 위생설비(화장실) ",
         "[커뮤니케이션대학원 행정팀] 장학금, 시설, 기자재",
-        "[조경팀] 조경 유지관리 및 조경 공사 업무",
-        "[조경팀] 조경 유지관리, 행사 지원 등 현장 업무",
-        "[안전관리팀] 소방시설 관리",
+        "[조경팀] 조경 유지관리 및 조경 공사 업무 ",
+        "[조경팀] 조경 유지관리, 행사 지원 등 현장 업무 ",
+        "[안전관리팀] 소방시설 관리 ",
         "[안전관리팀] 연구실 안전관리, 환경시설"
+    ],
+    "name": [
+
+        "Facilities Office",
+        "Facility Management Team",
+        "Facility Department Construction Team",
+        "Facility Department Facilities Team",
+        "Safety Management Team, Facilities Department",
+        "Facilities Department Landscaping Team",
+        "Climate Change Adaptive Infrastructure Research Center",
+        "[Procurement Team] Facility construction and facility service contract",
+        "[Bureaucratic Team] Lecture room equipment and PC room management",
+        "[Bureaucratic Team] Registration of supplies and non-use of supplies",
+        "[Bureaucratic Team] Supplies Repair and Supplies Market (Recycling)",
+        "[Architecture team] remodeling, changing space",
+        "[Architecture team] Facility maintenance such as doors, flooring, and leaks",
+        "[Architecture team] Drawing management",
+        "[Facilities Team] Electrical facilities, audio-visual facilities, elevators",
+        "[Facilities Team] Heating and cooling and sanitary facilities (toilets)",
+        "[Communication Graduate School Administration Team] Scholarship, facilities, equipment management",
+        "[Landscaping Team] Landscaping maintenance and landscaping construction work",
+        "[Landscaping Team] Landscaping maintenance, event support, and field work",
+        "[Safety Management Team] Firefighting facility management",
+        "[Safety Management Team] Laboratory safety management, environmental facilities"  ,
+
     ],
     "위치": [
         "백양관",
@@ -78,8 +103,13 @@ df = pd.DataFrame({
 
 st.markdown("""
     <style>
+    .main > div.block-container {
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        max-width: 100% !important;
+    }
     table {
-        width: 110%;
+        width: 140%;
         background-color: white;  /* 기본 배경색 흰색 */
         border-collapse: collapse;
         font-size: 16px;
@@ -107,6 +137,10 @@ st.markdown("""
     }
     
     tbody td:nth-child(3) {
+        text-align: center;   /* 전화번호: 가운데 정렬 */
+    }
+            
+    tbody td:nth-child(4) {
         text-align: center;   /* 전화번호: 가운데 정렬 */
         font-weight: bold;
     }
