@@ -111,9 +111,16 @@ if clicked_location:
                 st.warning("Please fill in both name and content.")
 else:
     st.info("Please click on the map to select a location first.")
-    
+
+
+if "show_graph" not in st.session_state:
+    st.session_state.show_graph = False
 
 if st.button("📊 View Number of Complaints by Date"):
+    st.session_state.show_graph = not st.session_state.show_graph
+    
+    
+if st.session_state.show_graph:
     if complaints_data:
         try:
             dates = [row[0] for row in complaints_data if len(row) >= 1]

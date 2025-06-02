@@ -114,9 +114,14 @@ if clicked_location:
                 st.warning("이름과 민원 내용을 모두 입력해주세요.")
 else:
     st.info("먼저 지도에서 위치를 클릭해주세요.")
-    
+
+if "show_graph" not in st.session_state:
+    st.session_state.show_graph = False
 
 if st.button("📊 날짜별 민원 수 보기"):
+    st.session_state.show_graph = not st.session_state.show_graph
+
+if st.session_state.show_graph:
     if complaints_data:
         try:
             dates = [row[0] for row in complaints_data if len(row) >= 1]
