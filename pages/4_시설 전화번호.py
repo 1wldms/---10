@@ -165,4 +165,4 @@ st.markdown(df.to_html(index=False), unsafe_allow_html=True)
 
 
 st.markdown("---")
-st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
+st.caption("정보프로그래밍심화 기말과제 | 만든이: 민지은 박하람")

@@ -74,7 +74,7 @@ if lang == "ko":
             st.switch_page("pages/4_시설 전화번호.py")
 
     st.markdown("---")
-    st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
+    st.caption("정보프로그래밍심화 기말과제 | 만든이: 민지은 박하람")
 
 else:
     st.title("🏠 Neighborhood Complaint Reporting Platform")
@@ -124,4 +124,4 @@ else:
             st.switch_page("pages/4_시설 전화번호.py")
 
     st.markdown("---")
-    st.caption("Final Project for 정프심화 | By: Min Jieun & Park Haram")
+    st.caption("Final Project for ADVANCED INFORMATION PROGRAMMING | By: Min Jieun & Park Haram")

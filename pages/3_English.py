@@ -229,5 +229,5 @@ if "searched_writer" in st.session_state and st.session_state["searched_writer"]
                     st.sidebar.info("🔐 Please enter the password and click confirm.")
 
 st.markdown("---")
-st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
+st.caption("Final Project for ADVANCED INFORMATION PROGRAMMING | By: Min Jieun & Park Haram")
 

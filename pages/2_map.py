@@ -229,5 +229,5 @@ if "query_name" in st.session_state and st.session_state.query_name:
                     st.sidebar.info("🔐 비밀번호를 입력하고 확인을 누르세요.")
 
 st.markdown("---")
-st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
+st.caption("정보프로그래밍심화 기말과제 | 만든이: 민지은 박하람")
 

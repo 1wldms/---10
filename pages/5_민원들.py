@@ -83,3 +83,6 @@ if data:
                 st.rerun()
 else:
     st.warning("등록된 민원이 없습니다.")
+
+st.markdown("---")
+st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
