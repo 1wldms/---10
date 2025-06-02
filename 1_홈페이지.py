@@ -37,7 +37,7 @@ if lang == "ko":
     그 내용을 <strong>Google Sheet</strong>에 자동 저장할 수 있습니다.</p>
     """, unsafe_allow_html=True)
 
-    st.subheader("🛠️ 사용 방법 (Manual)")
+    st.subheader("🛠️ 사용 방법")
 
     with st.expander("1. 민원 등록하기"):
         st.markdown("""
@@ -47,33 +47,56 @@ if lang == "ko":
         - '민원 제출' 버튼을 누르면 등록 완료!
         """)
 
-    with st.expander("2. 민원 조회하기"):
+    with st.expander("2. 민원 조회/수정하기"):
         st.markdown("""
-        - 작성자 이름을 입력한 후 '조회' 버튼을 누르면 해당 작성자의 민원만 볼 수 있습니다.  
-        - 날짜별 민원 수를 확인할 수도 있어요.
+        - 사이드바에 이름 입력 후 '조회' 버튼 클릭  
+        - 각 민원에 비밀번호 입력하면 수정 가능  
+        - 날짜별 민원 수 확인도 가능
         """)
-        
+    
+    with st.expander("3. 민원 목록 보기 및 공감하기"):
+        st.markdown("""
+        - 지금까지 작성된 모든 민원을 날짜순으로 정렬해서 볼 수 있습니다.  
+        - 각 민원 아래에 있는 👍 버튼을 클릭하여 공감할 수 있어요.  
+        - 공감 수는 Google Sheet에 실시간으로 저장됩니다.  
+        - 이 기능은 사용자들이 서로의 불편에 공감하고  
+        **공동의 문제 해결에 함께 참여하도록 유도**합니다.
+        """)
+    
     st.markdown("---")
 
     st.subheader("🫵🏻 원하시는 페이지를 선택하세요!")
     st.write("")
-    st.write("") 
     
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("민원 작성하세요(한국어)"):
-            st.switch_page("pages/2_map.py")
+        if st.button("📝 민원 작성(한국어)", use_container_width=True):
+            st.switch_page("pages/2_민원 작성.py")
 
     with col2:
-        if st.button("민원 작성하세요(영어)"):
-            st.switch_page("pages/3_English.py")
+        if st.button("📝 민원 작성(영어)", use_container_width=True):
+            st.switch_page("pages/3_Write Complaint.py")
 
     with col3:
-        if st.button("시설 전화번호 모음"):
-            st.switch_page("pages/4_시설 전화번호.py")
+        if st.button("📞시설 전화번호", use_container_width=True):
+            st.switch_page("pages/4_시설 전화번호,Facility Phone.py")
+    
+    with col4:
+        if st.button("🧾 민원 게시판", use_container_width=True):
+            st.switch_page("pages/5_민원게시판,ComplaintBoard.py")
 
     st.markdown("---")
+    
+    with st.expander("🧑‍💻 개발 정보"):
+        st.markdown("""
+        - **개발 언어:** Python  
+        - **프레임워크:** Streamlit  
+        - **지도 연동:** folium + streamlit-folium  
+        - **데이터 저장:** Google Sheets API  
+        - **자동 번역:** Googletrans  
+        """)
+
     st.caption("정보프로그래밍심화 기말과제 | 만든이: 민지은 박하람")
 
 else:
@@ -101,27 +124,52 @@ else:
 
     with st.expander("2. View Complaints"):
         st.markdown("""
-        - Enter the name in the sidebar and click the 'Search' button to view that user's complaints.  
-        - You can also check the number of complaints by date.
+        - Enter your name and click 'Search'  
+        - Enter password to edit your complaint  
+        - View complaint stats by date
+        """)
+    
+    with st.expander("3. View All Complaints and Like"):
+        st.markdown("""
+        - You can view all complaints submitted so far in chronological order.  
+        - Click the 👍 button under each complaint to express empathy.  
+        - The number of likes is saved in real time to Google Sheets.  
+        - This feature encourages users to empathize with others' concerns  
+        and participate in solving shared problems.
         """)
     
     st.markdown("---")
 
     st.subheader("🫵🏻 Please select the page you want!")
-
-    col1, col2, col3 = st.columns(3)
+    t.write("")
+    
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("Write Complaint (Korean)"):
-            st.switch_page("pages/2_map.py")
+        if st.button("📝 Write Complaint (Korean)", use_container_width=True):
+            st.switch_page("pages/2_민원 작성.py")
 
     with col2:
-        if st.button("Write Complaint (English)"):
-            st.switch_page("pages/3_English.py")
+        if st.button("📝 Write Complaint (English)", use_container_width=True):
+            st.switch_page("pages/3_Write Complaint.py")
 
     with col3:
-        if st.button("Facility Phone Numbers"):
-            st.switch_page("pages/4_시설 전화번호.py")
+        if st.button("📞 Facility Phone Numbers", use_container_width=True):
+            st.switch_page("pages/4_시설 전화번호,Facility Phone.py")
+    
+    with col3:
+        if st.button("🧾 Complaint Board", use_container_width=True):
+            st.switch_page("pages/5_민원게시판,ComplaintBoard.py")
 
     st.markdown("---")
+    
+    with st.expander("🧑‍💻 Development Info"):
+        st.markdown("""
+        - **Language:** Python  
+        - **Framework:** Streamlit  
+        - **Map Integration:** folium + streamlit-folium  
+        - **Data Storage:** Google Sheets API  
+        - **Auto Translation:** Googletrans  
+        """)
+
     st.caption("Final Project for ADVANCED INFORMATION PROGRAMMING | By: Min Jieun & Park Haram")
