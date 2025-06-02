@@ -7,6 +7,8 @@ from googleapiclient.errors import HttpError
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator 
+from googletrans import Translator
+translator = Translator()
 
 SERVICE_ACCOUNT_FILE = "./credentials.json"
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -159,9 +161,26 @@ if st.sidebar.button("조회"):
             for row in filtered_complaints:
                 if len(row) == 5:
                     date, name, content, lat, lon = row
-                    st.sidebar.markdown(f"- 📅 {date} | 📝 {content}")
+                    #번역
+                                        
+                    try:
+                        detected = translator.detect(content)
+                        if detected.lang == 'ko':
+                            translated = translator.translate(content, src='ko', dest='en')
+                        else:
+                            translated = translator.translate(content, src=detected.lang, dest='ko')
+                        translated_text = translated.text
+                    except Exception as e:
+                        translated_text = "⚠️ 번역 실패"
+
+                    st.sidebar.markdown(f"""
+                    - 📅 {date}  
+                    - 📝 원문: {content}  
+                    - 🌐 번역: {translated_text}
+                    """)
         else:
             st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
 
 st.markdown("---")
 st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
+
