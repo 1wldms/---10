@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 
-st.markdown('# 시설 전화번호')
-st.sidebar.markdown('# 시설 전화번호')
+st.set_page_config(page_title="시설 전화번호", page_icon="☎️")
+st.title("☎️ 시설 전화번호")
 
 df = pd.DataFrame({
     "이름": [
@@ -122,3 +122,6 @@ st.markdown("""
 st.markdown(df.to_html(index=False), unsafe_allow_html=True)
 
 
+
+st.markdown("---")
+st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")

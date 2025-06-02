@@ -17,6 +17,8 @@ credentials = service_account.Credentials.from_service_account_file(
 
 service = build("sheets", "v4", credentials=credentials)
 
+st.set_page_config(page_title="민원 접수", page_icon="📍")
+
 st.title('📍민원 접수')
 st.sidebar.markdown('# 민원')
 
@@ -78,7 +80,6 @@ for row in complaints_data:
             ).add_to(m)
         except ValueError:
             pass            
-
 
 map_data = st_folium(m, width=725)
 
@@ -161,3 +162,6 @@ if st.sidebar.button("조회"):
                     st.sidebar.markdown(f"- 📅 {date} | 📝 {content}")
         else:
             st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
+
+st.markdown("---")
+st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
