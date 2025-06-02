@@ -27,7 +27,7 @@ latitude = 37.5636201943343
 longitude = 126.93774785651566
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
-map_data = st_folium(m, width=1500, height=700)
+
 
 def google_sheet_upload(spreadsheet_id, range_name, values):
     try:
@@ -82,8 +82,9 @@ for row in complaints_data:
         except ValueError:
             pass            
 
-
+map_data = st_folium(m, width=1500, height=700)
 clicked_location = map_data.get("last_clicked")
+
 
 # 민원 입력 폼
 if clicked_location:
