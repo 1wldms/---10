@@ -27,7 +27,6 @@ latitude = 37.5636201943343
 longitude = 126.93774785651566
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
-map_data = st_folium(m, width=1500, height=700)
 
 def google_sheet_upload(spreadsheet_id, range_name, values):
     try:
@@ -57,7 +56,7 @@ def google_sheet_read(spreadsheet_id, range_name):
 
 
 # 민원 지도에 표시
-complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:E")
+complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:G")
 
 for row in complaints_data:
     if len(row) == 5:
@@ -82,7 +81,7 @@ for row in complaints_data:
         except ValueError:
             pass            
 
-
+map_data = st_folium(m, width=1500, height=700)
 clicked_location = map_data.get("last_clicked")
 
 # 민원 입력 폼
@@ -102,8 +101,8 @@ if clicked_location:
 
         if submitted:
             if name and content:
-                values = [[date.strftime("%Y-%m-%d"), name, content, f"'{lat}", f"'{lon}"]]
-                result = google_sheet_upload(SPREADSHEET_ID, "시트1!A:E", values)
+                values = [[date.strftime("%Y-%m-%d"), name, content, f"'{lat}", f"'{lon}", 0, password]]
+                result = google_sheet_upload(SPREADSHEET_ID, "시트G", values)
                 if isinstance(result, HttpError):
                     st.error(f"Google Sheet error: {result}")
                 else:
@@ -144,40 +143,78 @@ if st.button("📊 View Number of Complaints by Date"):
     else:
         st.info("No complaints data available to display.")
 
-    #조회하기
-    # 사이드바에 작성자 조회 UI
-st.sidebar.markdown("## 작성자별 민원 조회")
-author_name = st.sidebar.text_input("작성자 이름 입력")
+# Save search state
+if st.sidebar.button("Search"):
+    st.session_state["searched_writer"] = writer_input.strip().lower()
 
-if st.sidebar.button("조회"):
-    if not author_name.strip():
-        st.sidebar.warning("작성자 이름을 입력해주세요.")
+# If a name was searched, display results
+if "searched_writer" in st.session_state and st.session_state["searched_writer"]:
+    searched_name = st.session_state["searched_writer"]
+
+    matched_complaints = []
+    for idx, row in enumerate(complaints_data):
+        if len(row) >= 2:
+            writer_name = row[1].strip().lower()
+            if writer_name == searched_name:
+                matched_complaints.append((idx, row))
+
+    if not matched_complaints:
+        st.sidebar.info("No complaints found for this writer.")
     else:
-        filtered_complaints = [row for row in complaints_data if len(row) >= 2 and row[1] == author_name.strip()]
-        if filtered_complaints:
-            st.sidebar.write(f"'{author_name}' 님의 민원 내역:")
-            for row in filtered_complaints:
-                if len(row) == 5:
-                    date, name, content, lat, lon = row
-                    #번역
-                                        
-                    try:
-                        detected = translator.detect(content)
-                        if detected.lang == 'ko':
-                            translated = translator.translate(content, src='ko', dest='en')
-                        else:
-                            translated = translator.translate(content, src=detected.lang, dest='ko')
-                        translated_text = translated.text
-                    except Exception as e:
-                        translated_text = "⚠️ 번역 실패"
+        st.sidebar.write(f"Complaints by '{searched_name}':")
 
-                    st.sidebar.markdown(f"""
-                    - 📅 {date}  
-                    - 📝 원문: {content}  
-                    - 🌐 번역: {translated_text}
-                    """)
-        else:
-            st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
+        for i, (row_index, row) in enumerate(matched_complaints):
+            date, name, content, lat, lon = row[:5]
+            password = row[6].strip() if len(row) >= 7 else ""
+
+            # Translate content
+            try:
+                detected = translator.detect(content)
+                if detected.lang == 'ko':
+                    translated_text = translator.translate(content, src='ko', dest='en').text
+                else:
+                    translated_text = translator.translate(content, src=detected.lang, dest='ko').text
+            except:
+                translated_text = "⚠️ Translation failed"
+
+            # Display
+            st.sidebar.markdown(f"""
+            #### 📅 {date}
+            - 📝 Original: {content}
+            - 🌐 Translation: {translated_text}
+            """)
+
+            edit_key = f"edit_mode_{i}"
+            if edit_key not in st.session_state:
+                st.session_state[edit_key] = False
+
+            if password:
+                entered_pw = st.sidebar.text_input("🔒 Enter password", type="password", key=f"pw_{i}")
+
+                if not st.session_state[edit_key]:
+                    if st.sidebar.button("🔓 Confirm", key=f"confirm_{i}"):
+                        if entered_pw == password:
+                            st.session_state[edit_key] = True
+                        else:
+                            st.sidebar.warning("❗ Incorrect password.")
+
+                if st.session_state[edit_key]:
+                    new_content = st.sidebar.text_area("✏️ Edit your complaint", value=content, key=f"edit_box_{i}")
+                    if st.sidebar.button("✅ Save", key=f"save_{i}"):
+                        try:
+                            service.spreadsheets().values().update(
+                                spreadsheetId=SPREADSHEET_ID,
+                                range=f"시트1!C{row_index + 1}",
+                                valueInputOption="USER_ENTERED",
+                                body={"values": [[new_content]]}
+                            ).execute()
+                            st.sidebar.success("✅ Successfully updated!")
+                            st.session_state[edit_key] = False
+                            st.rerun()
+                        except Exception as e:
+                            st.sidebar.error(f"❌ Failed to save. Error: {e}")
+                elif entered_pw == "":
+                    st.sidebar.info("🔐 Please enter the password and click confirm.")
 
 st.markdown("---")
 st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")

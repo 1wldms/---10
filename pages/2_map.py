@@ -57,11 +57,11 @@ def google_sheet_read(spreadsheet_id, range_name):
 
 
 # 민원 지도에 표시
-complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:E")
+complaints_data = google_sheet_read(SPREADSHEET_ID, "시트1!A:G")
 
 for row in complaints_data:
-    if len(row) == 5:
-        date, name, content, lat, lon = row
+    if len(row) >= 5: 
+        date, name, content, lat, lon = row[:5]
         try:
             lat = float(lat.replace("'", ""))
             lon = float(lon.replace("'", ""))
@@ -97,14 +97,15 @@ if clicked_location:
 
     with st.form("complaint_form"):
         name = st.text_input("민원 작성자", max_chars=20)
+        password = st.text_input("비밀번호", type="password", max_chars=20)
         content = st.text_area("민원 내용", height=150)
         date = st.date_input("📅 민원 날짜")
         submitted = st.form_submit_button("민원 제출")
 
         if submitted:
             if name and content:
-                values = [[date.strftime("%Y-%m-%d"), name, content, f"'{lat}", f"'{lon}"]]
-                result = google_sheet_upload(SPREADSHEET_ID, "시트1!A:E", values)
+                values = [[date.strftime("%Y-%m-%d"), name, content, f"'{lat}", f"'{lon}", 0, password]]
+                result = google_sheet_upload(SPREADSHEET_ID, "시트1!A:G", values)
                 if isinstance(result, HttpError):
                     st.error(f"Google Sheet 오류: {result}")
                 else:
@@ -145,40 +146,82 @@ if st.button("📊 날짜별 민원 수 보기"):
     else:
         st.info("아직 민원 데이터가 없습니다.")
 
-    #조회하기
-    # 사이드바에 작성자 조회 UI
+
 st.sidebar.markdown("## 작성자별 민원 조회")
-author_name = st.sidebar.text_input("작성자 이름 입력")
+name_input = st.sidebar.text_input("작성자 이름 입력", key="author_input")
 
 if st.sidebar.button("조회"):
-    if not author_name.strip():
-        st.sidebar.warning("작성자 이름을 입력해주세요.")
-    else:
-        filtered_complaints = [row for row in complaints_data if len(row) >= 2 and row[1] == author_name.strip()]
-        if filtered_complaints:
-            st.sidebar.write(f"'{author_name}' 님의 민원 내역:")
-            for row in filtered_complaints:
-                if len(row) == 5:
-                    date, name, content, lat, lon = row
-                    #번역
-                                        
-                    try:
-                        detected = translator.detect(content)
-                        if detected.lang == 'ko':
-                            translated = translator.translate(content, src='ko', dest='en')
-                        else:
-                            translated = translator.translate(content, src=detected.lang, dest='ko')
-                        translated_text = translated.text
-                    except Exception as e:
-                        translated_text = "⚠️ 번역 실패"
+    st.session_state.query_name = name_input.strip().lower()
 
-                    st.sidebar.markdown(f"""
-                    - 📅 {date}  
-                    - 📝 원문: {content}  
-                    - 🌐 번역: {translated_text}
-                    """)
-        else:
-            st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
+if "query_name" in st.session_state and st.session_state.query_name:
+    name_input = st.session_state.query_name
+
+    complaint_list = []
+    for idx, row in enumerate(complaints_data):
+        if len(row) >= 2:
+            author_in_row = row[1].strip().lower()
+            
+            if author_in_row == name_input:
+                complaint_list.append((idx, row))
+
+    if not complaint_list:
+        st.sidebar.info("해당 작성자의 민원 내역이 없습니다.")
+    else:
+        st.sidebar.write(f"'{name_input}' 님의 민원 내역:")
+
+        for i, (row_index, row) in enumerate(complaint_list):
+            date, name, content, lat, lon = row[:5]
+            password = row[6].strip() if len(row) >= 7 else ""
+
+            # translate
+            try:
+                detected = translator.detect(content)
+                if detected.lang == 'ko':
+                    translated_text = translator.translate(content, src='ko', dest='en').text
+                else:
+                    translated_text = translator.translate(content, src=detected.lang, dest='ko').text
+            except:
+                translated_text = "⚠️ 번역 실패"
+
+            st.sidebar.markdown(f"""
+            #### 📅 {date}
+            - 📝 원문: {content}
+            - 🌐 번역: {translated_text}
+            """)
+
+
+            edit_key = f"edit_{i}"
+            if edit_key not in st.session_state:
+                st.session_state[edit_key] = False
+
+            if password:
+                entered_pw = st.sidebar.text_input("🔒 비밀번호", type="password", key=f"pw_{i}")
+
+                if not st.session_state[edit_key]:
+                    if st.sidebar.button("🔓 확인", key=f"confirm_{i}"):
+                        if entered_pw == password:
+                            st.session_state[edit_key] = True
+                        else:
+                            st.sidebar.warning("❗ 비밀번호가 틀렸어요!")
+
+                if st.session_state[edit_key]:
+                    new_content = st.sidebar.text_area("✏️ 수정할 내용", value=content, key=f"edit_box_{i}")
+                    if st.sidebar.button("✅ 저장", key=f"save_{i}"):
+                        try:
+                            service.spreadsheets().values().update(
+                                spreadsheetId=SPREADSHEET_ID,
+                                range=f"시트1!C{row_index + 1}",
+                                valueInputOption="USER_ENTERED",
+                                body={"values": [[new_content]]}
+                            ).execute()
+                            st.sidebar.success("✅ 수정 완료!")
+                            st.session_state[edit_key] = False
+                            
+                            st.rerun()
+                        except Exception as e:
+                            st.sidebar.error(f"❌ 저장 실패... 오류: {e}")
+                elif entered_pw == "":
+                    st.sidebar.info("🔐 비밀번호를 입력하고 확인을 누르세요.")
 
 st.markdown("---")
 st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
