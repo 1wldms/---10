@@ -31,14 +31,6 @@ with st.expander("2. 민원 조회하기"):
     - 날짜별 민원 수를 확인할 수도 있어요.
     """)
 
-with st.expander("3. 기능 요약"):
-    st.markdown("""
-    - 지도 기반 위치 선택
-    - 텍스트 입력으로 민원 작성
-    - Google Sheets 자동 연동
-    - 민원 지도 시각화
-    - 날짜별 민원 통계 플롯
-    """)
 
 # 하단 참고
 st.markdown("---")
