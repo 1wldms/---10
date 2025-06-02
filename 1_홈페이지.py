@@ -20,10 +20,8 @@ if st.button(button_label):
         st.session_state["lang"] = "ko"
     st.rerun()  
 
-
 lang = st.session_state["lang"]
 
-# 언어별 텍스트
 if lang == "ko":
     st.title("🏠 동네 민원 신고 플랫폼")
     st.markdown("불편했던 동네 문제, 이제는 직접 신고해보세요!")
@@ -90,11 +88,11 @@ if lang == "ko":
     
     with st.expander("🧑‍💻 개발 정보"):
         st.markdown("""
-        - **개발 언어:** Python  
-        - **프레임워크:** Streamlit  
-        - **지도 연동:** folium + streamlit-folium  
-        - **데이터 저장:** Google Sheets API  
-        - **자동 번역:** Googletrans  
+        **개발 언어:** Python  
+        **프레임워크:** Streamlit  
+        **지도 연동:** folium + streamlit-folium  
+        **데이터 저장:** Google Sheets API  
+        **자동 번역:** Googletrans  
         """)
 
     st.caption("정보프로그래밍심화 기말과제 | 만든이: 민지은 박하람")
@@ -141,7 +139,7 @@ else:
     st.markdown("---")
 
     st.subheader("🫵🏻 Please select the page you want!")
-    t.write("")
+    st.write("")
     
     col1, col2, col3, col4 = st.columns(4)
 
@@ -157,7 +155,7 @@ else:
         if st.button("📞 Facility Phone Numbers", use_container_width=True):
             st.switch_page("pages/4_시설 전화번호,Facility Phone.py")
     
-    with col3:
+    with col4:
         if st.button("🧾 Complaint Board", use_container_width=True):
             st.switch_page("pages/5_민원게시판,ComplaintBoard.py")
 
@@ -165,11 +163,11 @@ else:
     
     with st.expander("🧑‍💻 Development Info"):
         st.markdown("""
-        - **Language:** Python  
-        - **Framework:** Streamlit  
-        - **Map Integration:** folium + streamlit-folium  
-        - **Data Storage:** Google Sheets API  
-        - **Auto Translation:** Googletrans  
+        **Language:** Python  
+        **Framework:** Streamlit  
+        **Map Integration:** folium + streamlit-folium  
+        **Data Storage:** Google Sheets API  
+        **Auto Translation:** Googletrans  
         """)
 
     st.caption("Final Project for ADVANCED INFORMATION PROGRAMMING | By: Min Jieun & Park Haram")
