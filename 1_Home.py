@@ -67,11 +67,11 @@ if lang == "ko":
 
     with col2:
         if st.button("민원 작성하세요(영어)"):
-            st.switch_page("pages/2_map.py")
+            st.switch_page("pages/3_English.py")
 
     with col3:
         if st.button("시설 전화번호 모음"):
-            st.switch_page("pages/3_시설 전화번호.py")
+            st.switch_page("pages/4_시설 전화번호.py")
 
     st.markdown("---")
     st.caption("정프심화 기말과제 | 만든이: 민지은 박하람")
@@ -117,11 +117,11 @@ else:
 
     with col2:
         if st.button("Write Complaint (English)"):
-            st.switch_page("pages/2_map.py")
+            st.switch_page("pages/3_English.py")
 
     with col3:
         if st.button("Facility Phone Numbers"):
-            st.switch_page("pages/3_시설 전화번호.py")
+            st.switch_page("pages/4_시설 전화번호.py")
 
     st.markdown("---")
     st.caption("Final Project for 정프심화 | By: Min Jieun & Park Haram")
