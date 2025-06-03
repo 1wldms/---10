@@ -78,11 +78,11 @@ if lang == "ko":
 
     with col3:
         if st.button("📞시설 전화번호", use_container_width=True):
-            st.switch_page("pages/4_시설 전화번호,Facility Phone.py")
+            st.switch_page("pages/4_시설 전화번호(Facility Phone).py")
     
     with col4:
         if st.button("🧾 민원 게시판", use_container_width=True):
-            st.switch_page("pages/5_민원게시판,ComplaintBoard.py")
+            st.switch_page("pages/5_민원게시판(ComplaintBoard).py")
 
     st.markdown("---")
     
@@ -153,11 +153,11 @@ else:
 
     with col3:
         if st.button("📞 Facility Phone Numbers", use_container_width=True):
-            st.switch_page("pages/4_시설 전화번호,Facility Phone.py")
+            st.switch_page("pages/4_시설 전화번호(Facility Phone).py")
     
     with col4:
         if st.button("🧾 Complaint Board", use_container_width=True):
-            st.switch_page("pages/5_민원게시판,ComplaintBoard.py")
+            st.switch_page("pages/5_민원게시판(ComplaintBoard).py")
 
     st.markdown("---")
     
