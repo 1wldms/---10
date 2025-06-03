@@ -3,11 +3,14 @@ class safari:
     !!!사파리 관리!!!
     이 클래스 안에
     
+    하람
     grid
     맨 처음 무작위 배치
-    run
+    __init__
+    move_to
+    
+    지은
     timestep
-    display
     step_move
     step_breed
     
@@ -38,7 +41,7 @@ class safari:
 
 
 class animal:
-    def __init(self, x, y):
+    def __init__(self, x, y):
         # 이부분 채우기
         
     def move_to(self, grid, target) -> bool:
