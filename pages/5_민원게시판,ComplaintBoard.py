@@ -68,6 +68,10 @@ if data:
     headers = data[0]
     complaints = data[1:]
 
+# 공감 수 기준으로 내림차순 정렬
+    complaints.sort(key=lambda row: int(row[5]) if len(row) >= 6 and row[5].isdigit() else 0, reverse=True)
+
+
     st.markdown("### 📋 등록된 민원 목록")
 
     for idx, row in enumerate(complaints):
