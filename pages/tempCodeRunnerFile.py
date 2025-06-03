@@ -2,7 +2,6 @@ import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from googletrans import Translator
 
 st.set_page_config(page_title="민원 리스트", page_icon="📝", layout="wide")
 st.title("📝 민원 리스트 및 공감하기")
@@ -14,26 +13,6 @@ SPREADSHEET_ID = "1r6u_HkJeCLgdMbbwGvM5b93jRibhgQniHmbVYsX0i04"
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 service = build("sheets", "v4", credentials=credentials)
-
-translator = Translator()
-
-# 언어 감지 및 번역 함수
-def detect_language(text):
-    try:
-        lang = translator.detect(text).lang
-        return lang
-    except Exception:
-        return "unknown"
-
-def translate_text(text):
-    lang = detect_language(text)
-    if lang == "ko":
-        translated = translator.translate(text, src="ko", dest="en")
-    elif lang == "en":
-        translated = translator.translate(text, src="en", dest="ko")
-    else:
-        return "(❗감지 실패)"
-    return translated.text
 
 def read_sheet():
     try:
@@ -85,13 +64,11 @@ if data:
 
         col1, col2 = st.columns([5, 1])
         with col1:
-            translated = translate_text(content)
             st.markdown(f"""
             ---
             **📅 날짜**: {date}  
             **✍ 작성자**: {name}  
             **📝 내용**: {content}  
-            **🌐 번역**: {translated}  
             **📌 위치**: ({lat}, {lon})
             """)
 
