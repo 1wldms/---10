@@ -9,9 +9,9 @@ if "lang" not in st.session_state:
 
 # 언어 전환 버튼
 if st.session_state["lang"] == "ko":
-    button_label = "🌐 Translate"
+    button_label = "🌐 English"
 else:
-    button_label = "🌐 원문으로"
+    button_label = "🌐 한국어"
 
 if st.button(button_label):
     if st.session_state["lang"] == "ko":
@@ -69,11 +69,11 @@ if lang == "ko":
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("📝 민원 작성(한국어)", use_container_width=True):
+        if st.button("📝 민원 작성(Korean)", use_container_width=True):
             st.switch_page("pages/2_민원 작성.py")
 
     with col2:
-        if st.button("📝 민원 작성(영어)", use_container_width=True):
+        if st.button("📝 민원 작성(English)", use_container_width=True):
             st.switch_page("pages/3_Write Complaint.py")
 
     with col3:
@@ -110,11 +110,11 @@ else:
     """, unsafe_allow_html=True)
 
 
-    st.subheader("🛠️ How to Use (Manual)")
+    st.subheader("🛠️ How to Use")
 
     with st.expander("1. Submit a Complaint"):
         st.markdown("""
-        - Click the location where the problem occurred on the map.  
+        - Click the location where on the map where the problem occurred.  
         - Enter the name and complaint content.  
         - Choose a date (default is today).  
         - Click the 'Submit Complaint' button to finish!
