@@ -15,7 +15,12 @@ class safari:
     step_breed
     
     def 만들기!
+
     """
+    def __init__(self, grid_size=5):
+        self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
+
+        
     def display(self):
         print(f'Clock: {self.timestep}')
         top_coord_str = ' '.join([f'{coord}' for coord in range(len(self.grid))])
