@@ -21,6 +21,8 @@ class Safari:
         self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
         self.timestep = 0
+        self.zebras = []
+        self.lions = []
 
     def get_random_empty_position(self):
         while True:
@@ -44,19 +46,35 @@ class Safari:
             exit()
     
     def step_move(self):
+        for y in range(self.grid_size):
+            for x in range(self.grid_size):
+                if self.grid[y][] in ('L','Z'):
+                    self.grid[y][x] = '.'
         
-        for zebra in self.zebra:
+        # 이동
+        for zebra in self.zebras:
             zebra.move(self.grid)
         
-        for lion in self.lion:
+        for lion in self.lions:
             lion.move(self.grid)
         
-        for zebra in self.zebra:
+        # grid표시
+        for zebra in self.zebras:
             self.grid[zebra.y][zebra.x] = 'Z'
+        for lion in self.lions:
+            self.grid[lion.y][lion.x] = 'L'
+            
+    def step_breed(self):
         
-        for lion in self.lion:
-            self.grid[lion.y][lion.x] = 'Z'
-
+        for zebra in self.zebras:
+            zebra.age += 1
+                if zebra.age >= 3:
+                    neighbors = self.get_neighbors(grid, target='.')
+        
+        for lion in self.lions:
+            lion.age += 1
+                if lion.age >= 3:
+                    neighbors = self.get_neighbors(grid, target='.')
 
 
     def timestep_adding(self):
@@ -74,9 +92,10 @@ class Safari:
 
 class animal:
     def __init__(self, x, y):
+        self.age = 0
         # 이부분 채우기
         pass
-        
+
     def move_to(self, grid, target) -> bool:
         neighbors = self.get_neighbors(grid, target='.')
         if len(neighbors) > 0:
@@ -84,7 +103,7 @@ class animal:
             self.x, self,y = chosen_neighbor
             return True
         return False
-        
+
     def get_neighbors(self, grid, target):
         ''' target can be ., L, or Z
         returns a list of coordinates '''
