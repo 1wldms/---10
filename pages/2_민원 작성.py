@@ -143,7 +143,7 @@ if st.session_state.show_graph:
             else:
                 date_counts = df['날짜'].dt.strftime('%Y-%m-%d').value_counts().sort_index()
             
-                fig, ax = plt.subplots()
+                fig, ax = plt.subplots(figsize=(10, 5))
                 date_counts.plot(kind='bar', ax=ax)
                 ax.set_title('Number of Complaints by Date')
                 ax.set_xlabel('Date')
