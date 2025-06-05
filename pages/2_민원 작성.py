@@ -23,8 +23,8 @@ st.set_page_config(page_title="민원 접수", page_icon="📍", layout="wide")
 st.title('📍민원 접수')
 st.sidebar.markdown('# 민원')
 
-latitude = 37.563620194334
-longitude = 126.93774785651566
+latitude = 37.56317848929566
+longitude = 126.93733792830048 
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
 
