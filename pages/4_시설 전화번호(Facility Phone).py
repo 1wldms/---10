@@ -26,10 +26,8 @@ df = pd.DataFrame ({
         "[조경팀] 조경 유지관리 및 조경 공사 업무 ",
         "[조경팀] 조경 유지관리, 행사 지원 등 현장 업무 ",
         "[안전관리팀] 소방시설 관리 ",
-        "[안전관리팀] 연구실 안전관리, 환경시설"
-    ],
+        "[안전관리팀] 연구실 안전관리, 환경시설"],
     "Name": [
-
         "Facilities Office",
         "Facility Management Team",
         "Facility Department Construction Team",
@@ -50,9 +48,7 @@ df = pd.DataFrame ({
         "[Landscaping Team] Landscaping maintenance and landscaping construction work",
         "[Landscaping Team] Landscaping maintenance, event support, and field work",
         "[Safety Management Team] Firefighting facility management",
-        "[Safety Management Team] Laboratory safety management, environmental facilities"  ,
-
-    ],
+        "[Safety Management Team] Laboratory safety management, environmental facilities"],
     "위치/Location": [
         "백양관",
         "백양관 S309호(비품), 백양관 N207호(원스톱지원)",
@@ -74,8 +70,7 @@ df = pd.DataFrame ({
         "백양관 S309호",
         "온실(화원)",
         "백양관S310호",
-        "백양관 S310호"
-    ],
+        "백양관 S310호"],
     "전화번호/Phone number": [
         "1599-1885",
         "02)2123-2180~4, 4000",
@@ -97,8 +92,7 @@ df = pd.DataFrame ({
         "02)2123-2186",
         "02)2123-3716",
         "02)2123-4179, 4119",
-        "02)2123-2176, 4801"
-    ]
+        "02)2123-2176, 4801"]
 })
 
 st.markdown("""
@@ -110,7 +104,7 @@ st.markdown("""
     }
     table {
         width: 120%;
-        background-color: white;  /* 기본 배경색 흰색 */
+        background-color: white; 
         border-collapse: collapse;
         font-size: 15px;
     }
