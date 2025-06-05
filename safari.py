@@ -48,7 +48,7 @@ class Safari:
     def step_move(self):
         for y in range(self.grid_size):
             for x in range(self.grid_size):
-                if self.grid[y][] in ('L','Z'):
+                if self.grid[y][x] in ('L','Z'):
                     self.grid[y][x] = '.'
         
         # 이동
@@ -68,13 +68,13 @@ class Safari:
         
         for zebra in self.zebras:
             zebra.age += 1
-                if zebra.age >= 3:
-                    neighbors = self.get_neighbors(grid, target='.')
+            if zebra.age >= 3:
+                neighbors = self.get_neighbors(grid, target='.')
         
         for lion in self.lions:
             lion.age += 1
-                if lion.age >= 3:
-                    neighbors = self.get_neighbors(grid, target='.')
+            if lion.age >= 3:
+                neighbors = self.get_neighbors(grid, target='.')
 
 
     def timestep_adding(self):
