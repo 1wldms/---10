@@ -19,6 +19,7 @@ class safari:
     """
     def __init__(self, grid_size=5):
         self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
+        self.grid_size = grid_size
 
         
     def display(self):
