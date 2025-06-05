@@ -20,8 +20,9 @@ class safari:
     def __init__(self, grid_size=5):
         self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
+        self.timestep = 0
 
-        
+    
     def display(self):
         print(f'Clock: {self.timestep}')
         top_coord_str = ' '.join([f'{coord}' for coord in range(len(self.grid))])
@@ -35,11 +36,14 @@ class safari:
         key = input('enter [q] to quit:')
         if key == 'q':
             exit()
-    
+
+    def timestep_adding(self):
+        self.timestep += 1
+
     def run (self, num_timesteps=100):
         self.display()
         for _ in range(num_timesteps):
-            self.timestep += 1
+            self.timestep_adding()
             self.step_move()
             self.display()
             self.step_breed()
@@ -49,6 +53,7 @@ class safari:
 class animal:
     def __init__(self, x, y):
         # 이부분 채우기
+        pass
         
     def move_to(self, grid, target) -> bool:
         neighbors = self.get_neighbors(grid, target='.')
