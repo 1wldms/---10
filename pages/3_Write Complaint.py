@@ -23,8 +23,8 @@ st.set_page_config(page_title="Complaints", page_icon="📍", layout="wide")
 st.title('📍Complaints')
 st.sidebar.markdown('# Complaints')
 
-latitude = 37.5636201943343
-longitude = 126.93774785651566
+latitude = 37.56317848929566
+longitude = 126.93733792830048 
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
 
@@ -107,7 +107,13 @@ if clicked_location:
                 if isinstance(result, HttpError):
                     st.error(f"Google Sheet error: {result}")
                 else:
-                    st.success("Complaint has been successfully submitted!")
+                    st.success(f"""
+                📝 Complaint Details
+                - Name: {name}
+                - Date: {date}
+                - Content: {content}
+                - Location: ({lat:.5f}, {lon:.5f})
+                """)
             else:
                 st.warning("Please fill in both name and content.")
 else:
