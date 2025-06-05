@@ -1,6 +1,6 @@
 import random
 
-class safari:
+class Safari:
     """ 
     !!!사파리 관리!!!
     이 클래스 안에
@@ -9,10 +9,8 @@ class safari:
     grid
     맨 처음 무작위 배치
     __init__
-    move_to
     
     지은
-    timestep
     step_move
     step_breed
     
@@ -23,10 +21,6 @@ class safari:
         self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
         self.timestep = 0
-<<<<<<< HEAD
-
-    
-=======
 
     def get_random_empty_position(self):
         while True:
@@ -35,8 +29,6 @@ class safari:
             if self.grid[y][x] == '.':
                 return x, y
 
-
->>>>>>> 5c3cf720c57d842edcef96daafce9197e0b9b4cb
     def display(self):
         print(f'Clock: {self.timestep}')
         top_coord_str = ' '.join([f'{coord}' for coord in range(len(self.grid))])
@@ -50,6 +42,22 @@ class safari:
         key = input('enter [q] to quit:')
         if key == 'q':
             exit()
+    
+    def step_move(self):
+        
+        for zebra in self.zebra:
+            zebra.move(self.grid)
+        
+        for lion in self.lion:
+            lion.move(self.grid)
+        
+        for zebra in self.zebra:
+            self.grid[zebra.y][zebra.x] = 'Z'
+        
+        for lion in self.lion:
+            self.grid[lion.y][lion.x] = 'Z'
+
+
 
     def timestep_adding(self):
         self.timestep += 1
@@ -91,6 +99,10 @@ class animal:
 
 
 class Lion(animal):
+    def __init__(self, x, y):
+        super().__int__(x,y)
+        self.hp = 3
+        
     def move(self, grid):
         print_TODO('get neighboring zebra')
         print_TODO('move to zebra if found')
@@ -103,6 +115,9 @@ class Lion(animal):
 
 
 class Zebra(animal):
+    def __init__(self, x, y):
+        super().__int__(x,y)
+        
     def move(self, grid):
         print(f'before: {self.x=}, {self.y=}')
         self.move_to(grid, target='.')
