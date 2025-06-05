@@ -1,3 +1,5 @@
+import random
+
 class safari:
     """ 
     !!!사파리 관리!!!
@@ -21,8 +23,20 @@ class safari:
         self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
         self.timestep = 0
+<<<<<<< HEAD
 
     
+=======
+
+    def get_random_empty_position(self):
+        while True:
+            x = random.randint(0, self.grid_size - 1)
+            y = random.randint(0, self.grid_size - 1)
+            if self.grid[y][x] == '.':
+                return x, y
+
+
+>>>>>>> 5c3cf720c57d842edcef96daafce9197e0b9b4cb
     def display(self):
         print(f'Clock: {self.timestep}')
         top_coord_str = ' '.join([f'{coord}' for coord in range(len(self.grid))])
@@ -94,7 +108,8 @@ class Zebra(animal):
         self.move_to(grid, target='.')
         print(f'after: {self.x=}, {self.y=}')
 
-
+s = Safari()
+s.display()
 
 
 
