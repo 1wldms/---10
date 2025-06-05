@@ -23,7 +23,7 @@ st.set_page_config(page_title="민원 접수", page_icon="📍", layout="wide")
 st.title('📍민원 접수')
 st.sidebar.markdown('# 민원')
 
-latitude = 37.5636201943343
+latitude = 37.563620194334
 longitude = 126.93774785651566
 
 m = folium.Map(location=[latitude, longitude], zoom_start=90)  
@@ -109,7 +109,13 @@ if clicked_location:
                 if isinstance(result, HttpError):
                     st.error(f"Google Sheet 오류: {result}")
                 else:
-                    st.success("민원이 성공적으로 제출되었습니다!")
+                    st.success(f"""
+                    📝 민원 정보 확인
+                    - 이름: {name}
+                    - 날짜: {date}
+                    - 내용: {content}
+                    - 위치: ({lat:.5f}, {lon:.5f})
+                    """)
             else:
                 st.warning("이름과 민원 내용을 모두 입력해주세요.")
 else:
