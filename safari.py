@@ -45,7 +45,10 @@ class animal:
         # 이부분 채우기
         
     def move_to(self, grid, target) -> bool:
-        # 이부분 채우
+        neighbors = self.get_neighbors(grid, target='.')
+        if len(neighbors) > 0:
+            chosen_neighbor = random.choice(neighbors)
+            self.x, self,y = chosen_neighbor
         
     def get_neighbors(self, grid, target):
         ''' target can be ., L, or Z
