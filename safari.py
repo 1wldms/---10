@@ -49,6 +49,8 @@ class animal:
         if len(neighbors) > 0:
             chosen_neighbor = random.choice(neighbors)
             self.x, self,y = chosen_neighbor
+            return True
+        return False
         
     def get_neighbors(self, grid, target):
         ''' target can be ., L, or Z
@@ -63,32 +65,22 @@ class animal:
         return neighbors
 
 
-
 class Lion(animal):
     def move(self, grid):
         print_TODO('get neighboring zebra')
         print_TODO('move to zebra if found')
-        neighbors = self.get_neighbors(grid, target = 'Z')
-        if len(neighbors) > 0:
-            chosen_neighbor = random.choice(neighbors)
-            self.x, self.y = chosen_neighbor
+        if self.move_to(grid, target='Z'):
             self.hp = 3
             return
 
         print_TODO('get empty neighbor')
-        neighbors = self.get_neighbors(grid, target = '.')
-        if len(neighbors) > 0:
-            chosen_neighbor = random.choice(neighbors)
-            self.x, self.y = chosen_neighbor
+        self.move_to(grid, target='.')
 
 
 class Zebra(animal):
     def move(self, grid):
         print(f'before: {self.x=}, {self.y=}')
-        neighbors = self.get_neighbors(grid, target='.')
-        if len(neighbors) > 0:
-            chosen_neighbor = random.choice(neighbors)
-            self.x, self,y = chosen_neighbor
+        self.move_to(grid, target='.')
         print(f'after: {self.x=}, {self.y=}')
 
 
