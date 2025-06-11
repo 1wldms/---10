@@ -13,8 +13,6 @@ class Safari:
     지은
     step_move
     step_breed
-    
-    def 만들기!
 
     """
     def __init__(self, grid_size=5):
@@ -65,17 +63,25 @@ class Safari:
             self.grid[lion.y][lion.x] = 'L'
             
     def step_breed(self):
-        
+        new_zebras = []
         for zebra in self.zebras:
             zebra.age += 1
             if zebra.age >= 3:
                 neighbors = self.get_neighbors(grid, target='.')
+                if neighbors:
+                    x, y = random.choice(neighbors)
+                    new_zebras.append(Zebra(x, y))
         
+        new_lions = []
         for lion in self.lions:
             lion.age += 1
             if lion.age >= 3:
                 neighbors = self.get_neighbors(grid, target='.')
-
+                if neighbors:
+                    x, y = random.choice(neighbors)
+                    new_lions.append(Lion(x, y))
+        self.zebras += new_zebras
+        self.lions += new_lions
 
     def timestep_adding(self):
         self.timestep += 1
@@ -93,8 +99,9 @@ class Safari:
 class animal:
     def __init__(self, x, y):
         self.age = 0
+        self.x = x
+        self.y = y
         # 이부분 채우기
-        pass
 
     def move_to(self, grid, target) -> bool:
         neighbors = self.get_neighbors(grid, target='.')
@@ -119,7 +126,7 @@ class animal:
 
 class Lion(animal):
     def __init__(self, x, y):
-        super().__int__(x,y)
+        super().__init__(x,y)
         self.hp = 3
         
     def move(self, grid):
@@ -135,7 +142,7 @@ class Lion(animal):
 
 class Zebra(animal):
     def __init__(self, x, y):
-        super().__int__(x,y)
+        super().__init__(x,y)
         
     def move(self, grid):
         print(f'before: {self.x=}, {self.y=}')
