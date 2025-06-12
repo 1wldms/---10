@@ -16,7 +16,7 @@ class Safari:
 
     """
     def __init__(self, grid_size=5):
-        self.grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
+        self.grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
         self.timestep = 0
         self.zebras = []
