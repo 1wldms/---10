@@ -175,7 +175,7 @@ class Zebra(animal):
         self.move_to(grid, target='.')
 
 s = Safari()
-s.run(num_timesteps=5)
+s.run(num_timesteps=100)
 
 
 
