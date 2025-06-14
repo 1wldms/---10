@@ -40,16 +40,17 @@ class Safari:
 
     
     def step_move(self):
-        for y in range(self.grid_size):
-            for x in range(self.grid_size):
-                if self.grid[y][x] in ('L','Z'):
-                    self.grid[y][x] = '.'
-        
-        # 이동
+    # 얼룩말 위치 지우기
+        for zebra in self.zebras:
+            self.grid[zebra.y][zebra.x] = '.'
+        # 얼룩말 이동
         for zebra in self.zebras:
             zebra.move(self.grid)
-    
-    # 사자 hp 체크해서 죽은 사자 제거
+        # 얼룩말 위치 표시
+        for zebra in self.zebras:
+            self.grid[zebra.y][zebra.x] = 'Z'
+
+        # 사자 hp 체크 및 죽은 사자 위치 지우기
         surviving_lions = []
         for lion in self.lions:
             if lion.hp > 0:
@@ -57,16 +58,20 @@ class Safari:
             else:
                 self.grid[lion.y][lion.x] = '.'
         self.lions = surviving_lions
-        
-        # 사자 이동(이때 얼룩말 리스트도 넘겨줌)
+
+        # 사자 위치 지우기 (이동 전)
+        for lion in self.lions:
+            self.grid[lion.y][lion.x] = '.'
+
+        # 사자 이동
         for lion in self.lions:
             lion.move(self.grid, self.zebras)
-        
-        # 그리드에 다시 동물 표시
-        for zebra in self.zebras:
-            self.grid[zebra.y][zebra.x] = 'Z'
+
+        # 사자 위치 표시 (이동 후)
         for lion in self.lions:
             self.grid[lion.y][lion.x] = 'L'
+
+
 
 
     def step_breed(self):
@@ -142,29 +147,39 @@ class animal:
 
 class Lion(animal):
     def __init__(self, x, y):
-        super().__init__(x,y)
+        super().__init__(x, y)
         self.hp = 3
-        
+
     def move(self, grid, zebras):
+    # 1) 인접한 얼룩말 있으면 먹기
         zebra_neighbors = self.get_neighbors(grid, target='Z')
         if zebra_neighbors:
-            # 얼룩말 있는 곳으로 이동 + 먹기
             chosen_pos = random.choice(zebra_neighbors)
             self.x, self.y = chosen_pos
             
-            # 얼룩말 제거
             for zebra in zebras:
                 if zebra.x == self.x and zebra.y == self.y:
                     zebras.remove(zebra)
+                    grid[self.y][self.x] = '.'  # 그리드에서 얼룩말 자리 비우기
                     break
-            
-            self.hp = 3  # hp 회복
+
+            self.hp = 3
             return
-        
-        # 먹이 없으면 빈 칸으로 이동
-        moved = self.move_to(grid, target='.')
-        if moved:
-            self.hp -= 1  # 먹이 없으면 hp 감소
+
+        # 2) 먹을 얼룩말이 인접에 없으면, 가장 가까운 얼룩말 쪽으로 한 칸 이동
+        if zebras:
+            # 가장 가까운 얼룩말 찾기 
+            target = min(zebras, key=lambda z: abs(z.x - self.x) + abs(z.y - self.y))
+            dx = target.x - self.x
+            dy = target.y - self.y
+            step_x = 1 if dx > 0 else -1 if dx < 0 else 0
+            step_y = 1 if dy > 0 else -1 if dy < 0 else 0
+            for nx, ny in [(self.x + step_x, self.y), (self.x, self.y + step_y)]:
+                if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid) and grid[ny][nx] == '.':
+                    self.x, self.y = nx, ny
+                    break
+        # 3) 이동 후 먹이 없었으니 hp 감소
+        self.hp -= 1
 
 
 class Zebra(animal):
