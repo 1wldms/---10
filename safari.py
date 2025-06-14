@@ -72,8 +72,6 @@ class Safari:
             self.grid[lion.y][lion.x] = 'L'
 
 
-
-
     def step_breed(self):
         new_zebras = []
         for zebra in self.zebras:
@@ -189,9 +187,11 @@ class Zebra(animal):
     def move(self, grid):
         self.move_to(grid, target='.')
 
-s = Safari()
-s.run(num_timesteps=100)
 
+
+if __name__ == "__main__":
+    s = Safari()
+    s.run()
 
 
 
