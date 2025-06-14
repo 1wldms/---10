@@ -62,11 +62,21 @@ class Safari:
         # 이동
         for zebra in self.zebras:
             zebra.move(self.grid)
-        
+    
+    # 사자 hp 체크해서 죽은 사자 제거
+        surviving_lions = []
         for lion in self.lions:
-            lion.move(self.grid)
+            if lion.hp > 0:
+                surviving_lions.append(lion)
+            else:
+                self.grid[lion.y][lion.x] = '.'
+        self.lions = surviving_lions
         
-        # grid표시
+        # 사자 이동(이때 얼룩말 리스트도 넘겨줌)
+        for lion in self.lions:
+            lion.move(self.grid, self.zebras)
+        
+        # 그리드에 다시 동물 표시
         for zebra in self.zebras:
             self.grid[zebra.y][zebra.x] = 'Z'
         for lion in self.lions:
@@ -85,7 +95,7 @@ class Safari:
         new_lions = []
         for lion in self.lions:
             lion.age += 1
-            if lion.age >= 3:
+            if lion.age >= 5:
                 neighbors = lion.get_neighbors(self.grid, target='.')
                 if neighbors:
                     x, y = random.choice(neighbors)
@@ -117,7 +127,7 @@ class animal:
         self.y = y
 
     def move_to(self, grid, target) -> bool:
-        neighbors = self.get_neighbors(grid, target='.')
+        neighbors = self.get_neighbors(grid, target=target)  
         if len(neighbors) > 0:
             chosen_neighbor = random.choice(neighbors)
             self.x, self.y = chosen_neighbor
@@ -148,12 +158,26 @@ class Lion(animal):
         super().__init__(x,y)
         self.hp = 3
         
-    def move(self, grid):
+    def move(self, grid, zebras):
         zebra_neighbors = self.get_neighbors(grid, target='Z')
-        if self.move_to(grid, target='Z'):
-            self.hp = 3
+        if zebra_neighbors:
+            # 얼룩말 있는 곳으로 이동 + 먹기
+            chosen_pos = random.choice(zebra_neighbors)
+            self.x, self.y = chosen_pos
+            
+            # 얼룩말 제거
+            for zebra in zebras:
+                if zebra.x == self.x and zebra.y == self.y:
+                    zebras.remove(zebra)
+                    break
+            
+            self.hp = 3  # hp 회복
             return
-        self.move_to(grid, target='.')
+        
+        # 먹이 없으면 빈 칸으로 이동
+        moved = self.move_to(grid, target='.')
+        if moved:
+            self.hp -= 1  # 먹이 없으면 hp 감소
 
 
 
@@ -165,7 +189,7 @@ class Zebra(animal):
         self.move_to(grid, target='.')
 
 s = Safari()
-s.run(num_timesteps=5)
+s.run(num_timesteps=1000)
 
 
 
