@@ -1,20 +1,6 @@
 import random
 
 class Safari:
-    """ 
-    !!!사파리 관리!!!
-    이 클래스 안에
-    
-    하람
-    grid
-    맨 처음 무작위 배치
-    __init__
-    
-    지은
-    step_move
-    step_breed
-
-    """
     def __init__(self, grid_size=50):
         self.grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
@@ -22,7 +8,7 @@ class Safari:
         self.zebras = []
         self.lions = []
 
-         # 무작위로 동물 배치
+        # 무작위로 동물 배치
         for _ in range(20):  # 얼룩말 20마리
             x, y = self.get_random_empty_position()
             self.zebras.append(Zebra(x, y))
@@ -81,7 +67,8 @@ class Safari:
             self.grid[zebra.y][zebra.x] = 'Z'
         for lion in self.lions:
             self.grid[lion.y][lion.x] = 'L'
-            
+
+
     def step_breed(self):
         new_zebras = []
         for zebra in self.zebras:
@@ -180,7 +167,6 @@ class Lion(animal):
             self.hp -= 1  # 먹이 없으면 hp 감소
 
 
-
 class Zebra(animal):
     def __init__(self, x, y):
         super().__init__(x,y)
@@ -189,7 +175,7 @@ class Zebra(animal):
         self.move_to(grid, target='.')
 
 s = Safari()
-s.run(num_timesteps=1000)
+s.run(num_timesteps=5)
 
 
 
