@@ -15,7 +15,7 @@ class Safari:
     step_breed
 
     """
-    def __init__(self, grid_size=5):
+    def __init__(self, grid_size=50):
         self.grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
         self.grid_size = grid_size
         self.timestep = 0
@@ -23,12 +23,12 @@ class Safari:
         self.lions = []
 
          # 무작위로 동물 배치
-        for _ in range(5):  # 얼룩말 5마리
+        for _ in range(20):  # 얼룩말 20마리
             x, y = self.get_random_empty_position()
             self.zebras.append(Zebra(x, y))
             self.grid[y][x] = 'Z'
 
-        for _ in range(3):  # 사자 3마리
+        for _ in range(5):  # 사자 5마리
             x, y = self.get_random_empty_position()
             self.lions.append(Lion(x, y))
             self.grid[y][x] = 'L'
@@ -79,7 +79,7 @@ class Safari:
         for zebra in self.zebras:
             zebra.age += 1
             if zebra.age >= 3:
-                neighbors = self.get_neighbors(grid, target='.')
+                neighbors = self.get_neighbors(self.grid, target='.')
                 if neighbors:
                     x, y = random.choice(neighbors)
                     new_zebras.append(Zebra(x, y))
@@ -88,7 +88,7 @@ class Safari:
         for lion in self.lions:
             lion.age += 1
             if lion.age >= 3:
-                neighbors = self.get_neighbors(grid, target='.')
+                neighbors = self.get_neighbors(self.grid, target='.')
                 if neighbors:
                     x, y = random.choice(neighbors)
                     new_lions.append(Lion(x, y))
@@ -113,7 +113,6 @@ class animal:
         self.age = 0
         self.x = x
         self.y = y
-        # 이부분 채우기
 
     def move_to(self, grid, target) -> bool:
         neighbors = self.get_neighbors(grid, target='.')
@@ -126,13 +125,19 @@ class animal:
     def get_neighbors(self, grid, target):
         ''' target can be ., L, or Z
         returns a list of coordinates '''
-        print_TODO('get_neighbors currently returns all directinos')
         x, y = self.x, self.y
         neighbors = []
-        neighbors.append([x - 1, y])
-        neighbors.append([x + 1, y])
-        neighbors.append([x, y - 1])
-        neighbors.append([x, y + 1])
+        candidate_positions = [
+            [x - 1, y],
+            [x + 1, y],
+            [x, y - 1],
+            [x, y + 1]
+        ]
+        
+        for nx, ny in candidate_positions:
+            if 0 <= nx < len(grid[0]) and 0 <= ny < len(grid):
+                if grid[ny][nx] == target:
+                    neighbors.append([nx, ny])
         return neighbors
 
 
@@ -142,13 +147,15 @@ class Lion(animal):
         self.hp = 3
         
     def move(self, grid):
-        print_TODO('get neighboring zebra')
-        print_TODO('move to zebra if found')
+        print('get neighboring zebra')
+        zebra_neighbors = self.get_neighbors(grid, target='Z')
+       
+        print('move to zebra if found')
         if self.move_to(grid, target='Z'):
             self.hp = 3
             return
 
-        print_TODO('get empty neighbor')
+        print('get empty neighbor')
         self.move_to(grid, target='.')
 
 
