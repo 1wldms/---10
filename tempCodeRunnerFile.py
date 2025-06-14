@@ -51,7 +51,9 @@ class Safari:
             self.grid[animal.y][animal.x] = 'L'
         for row, line in enumerate(self.grid):
             print(f'{row:2} ' + ' '.join(line))
-
+        key = input('enter [q] to quit:')
+        if key == 'q':
+            exit()
     
     def step_move(self):
         for y in range(self.grid_size):
@@ -98,7 +100,6 @@ class Safari:
 
     def run(self, num_timesteps=100):
         self.display()
-        
         while self.timestep < num_timesteps:
             key = input("Press Enter to continue, or [q] to quit: ")
             if key.lower() == 'q':
@@ -107,7 +108,7 @@ class Safari:
             self.step_move()
             self.display()
             self.step_breed()
-
+            self.display()
 
 
 class animal:
@@ -149,12 +150,16 @@ class Lion(animal):
         self.hp = 3
         
     def move(self, grid):
+        print('get neighboring zebra')
         zebra_neighbors = self.get_neighbors(grid, target='Z')
+       
+        print('move to zebra if found')
         if self.move_to(grid, target='Z'):
             self.hp = 3
             return
-        self.move_to(grid, target='.')
 
+        print('get empty neighbor')
+        self.move_to(grid, target='.')
 
 
 class Zebra(animal):
@@ -162,7 +167,9 @@ class Zebra(animal):
         super().__init__(x,y)
         
     def move(self, grid):
+        print(f'before: {self.x=}, {self.y=}')
         self.move_to(grid, target='.')
+        print(f'after: {self.x=}, {self.y=}')
 
 s = Safari()
 s.run(num_timesteps=5)
