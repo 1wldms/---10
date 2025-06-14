@@ -22,12 +22,24 @@ class Safari:
         self.zebras = []
         self.lions = []
 
+         # 무작위로 동물 배치
+        for _ in range(5):  # 얼룩말 5마리
+            x, y = self.get_random_empty_position()
+            self.zebras.append(Zebra(x, y))
+            self.grid[y][x] = 'Z'
+
+        for _ in range(3):  # 사자 3마리
+            x, y = self.get_random_empty_position()
+            self.lions.append(Lion(x, y))
+            self.grid[y][x] = 'L'
+
     def get_random_empty_position(self):
         while True:
             x = random.randint(0, self.grid_size - 1)
             y = random.randint(0, self.grid_size - 1)
             if self.grid[y][x] == '.':
                 return x, y
+            
 
     def display(self):
         print(f'Clock: {self.timestep}')
@@ -107,7 +119,7 @@ class animal:
         neighbors = self.get_neighbors(grid, target='.')
         if len(neighbors) > 0:
             chosen_neighbor = random.choice(neighbors)
-            self.x, self,y = chosen_neighbor
+            self.x, self.y = chosen_neighbor
             return True
         return False
 
