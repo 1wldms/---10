@@ -79,7 +79,7 @@ class Safari:
         for zebra in self.zebras:
             zebra.age += 1
             if zebra.age >= 3:
-                neighbors = self.get_neighbors(self.grid, target='.')
+                neighbors = zebra.get_neighbors(self.grid, target='.')
                 if neighbors:
                     x, y = random.choice(neighbors)
                     new_zebras.append(Zebra(x, y))
@@ -88,7 +88,7 @@ class Safari:
         for lion in self.lions:
             lion.age += 1
             if lion.age >= 3:
-                neighbors = self.get_neighbors(self.grid, target='.')
+                neighbors = lion.get_neighbors(self.grid, target='.')
                 if neighbors:
                     x, y = random.choice(neighbors)
                     new_lions.append(Lion(x, y))
@@ -169,7 +169,8 @@ class Zebra(animal):
         print(f'after: {self.x=}, {self.y=}')
 
 s = Safari()
-s.display()
+s.run(num_timesteps=5)
+
 
 
 
