@@ -148,7 +148,7 @@ class animal:
 class Lion(animal):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.hp = 3
+        self.hp = 5
 
     def move(self, grid, zebras):
     # 1) 인접한 얼룩말 있으면 먹기
