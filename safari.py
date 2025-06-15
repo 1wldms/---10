@@ -161,7 +161,7 @@ class Lion(animal):
                     grid[self.y][self.x] = '.'  # 그리드에서 얼룩말 자리 비우기
                     break
 
-            self.hp = 3
+            self.hp += 1  # 사자는 먹이를 먹으면 +1
             return
 
         # 2) 먹을 얼룩말이 인접에 없으면, 가장 가까운 얼룩말 쪽으로 한 칸 이동
